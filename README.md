@@ -1,2 +1,2 @@
-# Smart-Arabic-Islamic-Emotional-Companion
-An AI conversational System for Detecting Emotional States and Providing Personalized Spiritual Support
+# الرفيق العربي الإسلامي الذكي للدعم العاطفي
+نظام محادثة يعتمد على الذكاء الاصطناعي لاكتشاف الحالات العاطفية وتقديم دعم روحي مخصّص.
