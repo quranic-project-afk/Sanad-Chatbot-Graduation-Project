@@ -3,9 +3,13 @@ message: "If you use this software, please cite it as below."
 title: "SANAD: Smart Qur'anic Emotional Companion"
 type: software
 authors:
-  - family-names: "[FAMILY NAME]"
-    given-names: "[GIVEN NAME]"
-repository-code: "https://github.com/quranic-project-afk/Sanad-Chatbot_Graduation_Project"
+  - family-names: Ibrahim
+    given-names: Eithar
+  - family-names: Mohammed
+    given-names: Hajer
+  - family-names: Ahmed
+    given-names: Doaa
+repository-code: "https://github.com/quranic-project-afk/Sanad-Chatbot-Graduation-Project"
 license: MIT
 date-released: "2026-11-03"
 keywords:
