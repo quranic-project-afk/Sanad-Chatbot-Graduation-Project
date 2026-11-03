@@ -1,85 +1,89 @@
 # SANAD – Smart Qur'anic Emotional Companion
 
-SANAD is a Telegram companion for Sudanese-Arabic users. It reads a message, detects one of four emotions (fear, joy, anger, sadness), and replies with a short Sudanese-dialect response and a Qur'anic verse with its tafsir, taken from a manually curated list of 99 verses. A rule-based safety layer reads every message first and answers risk messages with a fixed emergency reply.
+SANAD is a Telegram companion for Sudanese-Arabic users. It reads a message, detects one of four emotions (fear, joy, anger, sadness), and replies with a short Sudanese-dialect response and a Qur'anic verse with its tafsir, selected from a manually curated list. A rule-based safety layer checks every message first and returns a fixed response for messages matching its emergency rules.
 
 This is the code and data of a BSc (Information Technology) graduation project, University of Khartoum, 2026.
 
-> **Not a clinical tool.** SANAD offers emotional and spiritual comfort only. It does not diagnose, treat, or give religious rulings, and it does not replace a doctor, a counsellor, or emergency services. It generates no text: every reply is built from prepared sentences and a verified verse.
+> **Not a clinical tool.** SANAD offers emotional and spiritual comfort only. It does not diagnose, treat, or give religious rulings, and it does not replace a doctor, counsellor, or emergency services. Replies are assembled from prepared sentences and curated verse content; the system is not a general-purpose text generator.
 
 ## How it works
 
-```
+```text
 Telegram message
    │
    ▼
-Safety layer (6 categories, 93 regex patterns) ──► fixed emergency reply (number 999) ─► stop
+Safety layer ──► fixed safety response when a rule matches ──► stop
    │
    ▼
-Greeting check ──► prepared greeting ─► stop
+Greeting check ──► prepared greeting ──► stop
    │
    ▼
-Emotion: AraBERT classifier + decision rules (negation, confidence 0.55, explicit words, confusion phrases, hardship words)
+Emotion: AraBERT classifier + decision rules
    │
    ▼
-Verse selection from 99 curated verses (trigger words, last 8 verses not repeated)
+Curated verse selection using trigger words and recent-verse history
    │
    ▼
-Reply assembled from Sudanese-dialect sentence banks + verse + Al-Muyassar tafsir
+Reply assembled from Sudanese-dialect sentence banks + verse + tafsir
 ```
 
-Verse text and tafsir are fetched from the [Al-Quran Cloud API](https://alquran.cloud/api), and each reference is checked against a key phrase before it is accepted.
+Verse text and tafsir are fetched from the [Al-Quran Cloud API](https://alquran.cloud/api). The code checks each verse reference against a key phrase before accepting it. An internet connection is needed when building the curated verse data if it is not already available in Google Drive.
 
 ## Results
 
-Evaluated on a test set split by source dialogue (no dialogue appears in more than one partition). Test set: 382 sentences.
+The reported evaluation uses a test set split by source dialogue, so a source dialogue does not appear in more than one partition. The test set contains 382 sentences.
 
 | Model | Accuracy | Macro-F1 |
-| --- | --- | --- |
+| --- | ---: | ---: |
 | TF-IDF + Logistic Regression | 97.91% | 0.9775 |
 | AraBERT (`aubmindlab/bert-base-arabertv02`) | 92.15% | 0.9148 |
 
-On a small probe set of 37 Sudanese-dialect sentences written by the team, AraBERT was correct on 29 (78.4%) and the TF-IDF baseline on 17 (45.9%). The training data keep only sentences with an explicit emotion, so the simple baseline does very well on the test set. The probe set is a qualitative check, not a benchmark.
+On a probe set of 37 Sudanese-dialect sentences written by the team, AraBERT was correct on 29 (78.4%) and the TF-IDF baseline on 17 (45.9%). The training data keep sentences with explicit emotion labels, so the baseline performs very well on the test set. The small probe set is a qualitative check, not a benchmark.
 
 ## Repository structure
 
+The paths below reflect the current names in GitHub. Some directory names have a trailing space; that space is part of the current path.
+
 | Path | Content |
 | --- | --- |
-| `Dataset/Initial/` | Source data: ELQV files, the Arabic EmpatheticDialogues corpus (raw and processed), and the preprocessing scripts |
-| `Dataset - Final sample/` | Final training file, the train/validation/test splits, test predictions, and probe results |
-| `SANAD System Notebooks/` | `01` clean split and model comparison, `02` curated verse list, `03` Telegram bot |
-| `SANAD System Scripts/` | The same three steps as Python scripts |
+| `Dataset/Initial /` | Initial data folder, including ELQV files, the master dataset, and the ArabicEmpatheticDialogues subfolder. |
+| `Dataset - Final sample/` | `Arabic_AraBERT_Training_Clean.xlsx`, train/validation/test splits, test predictions, probe results, and Sudanese probe examples. A CSV copy of the XLSX training file is not currently included. |
+| `SANAD System Notebooks /` | ` 01_clean_split_and_comparison.ipynb` (filename begins with a space), `02_curated_verse_list.ipynb`, and `03_bot_arabert_v3.ipynb`. |
+| `SANAD System Scripts /` | `clean_split_and_comparison.py`, `curated_verse_list.py`, and `bot_arabert_v3.py`. |
+| `README.md` | Project documentation. |
+| `CITATION.cff` | Citation metadata; replace the team names and repository URL there if they change. |
+| `LICENSE` | MIT licence for the project code. Dataset rights and terms are separate. |
+
+The `00_data_audit` notebook is not currently included in this repository.
 
 ## Run it
 
-The notebooks were developed on Google Colab with a T4 GPU (Python 3.13, PyTorch 2.11, Transformers 5.21, scikit-learn 1.6.1, python-telegram-bot 22.8).
+The notebooks were developed for Google Colab. Training uses Google Drive and a T4 GPU. The training script sets seed 42, creates grouped train/validation/test splits, trains a TF-IDF baseline and AraBERT (4 epochs, learning rate 2e-5, batch size 16), evaluates them, and saves the model and results to Drive. The training script expects `Arabic_AraBERT_Training_Clean.csv` in the root of Drive, while the repository currently contains the final training file as an `.xlsx`; convert it to CSV or adjust the input path before running the training notebook.
 
-1. **Train and compare** – run notebook `01`. It builds the grouped split, trains the TF-IDF baseline and AraBERT (4 epochs, learning rate 2e-5, batch size 16, seed 42), prints the metrics, and saves the model to Google Drive.
-2. **Build the verse list** – run notebook `02`. It fetches the 99 verses and their tafsir from Al-Quran Cloud and rejects any reference whose key phrase is not found. This step needs an internet connection.
-3. **Run the bot** – create a bot with [@BotFather](https://t.me/BotFather), store its token in Colab **Secrets** (key icon in the left bar), and run notebook `03`. The bot runs only while the notebook session is running.
+1. **Train and compare** – run `SANAD System Notebooks /  01_clean_split_and_comparison.ipynb` (the filename itself starts with a space). This generates grouped splits, trains and evaluates the models, and saves the checkpoint to Google Drive.
+2. **Build the verse list** – run `SANAD System Notebooks /02_curated_verse_list.ipynb`. It fetches verse text and tafsir, so this step requires internet access.
+3. **Run the bot** – store the Telegram bot token in Google Colab **Secrets** under the name `TELEGRAM_TOKEN`, then run `SANAD System Notebooks /03_bot_arabert_v3.ipynb`. The bot runs only while the notebook session is active. The bot expects trained model files in Google Drive.
 
-**Never put the bot token in the code or in a commit.** If a token was ever committed, revoke it with BotFather.
-
-Model weights are not included in this repository.
+**Never put the bot token in code or in a commit.** If a token was ever committed, revoke it with BotFather. Model weights are not included in this repository.
 
 ## Limitations
 
-- Four emotions only; mixed emotions and intensity are not represented.
-- The training data are Modern Standard Arabic and explicit emotion statements; Sudanese dialect, implicit emotion, and negation are handled only by hand-written rules, and negation handling was not fully verified end to end.
-- The 99 verses were chosen by the project team and have not been reviewed by a religious scholar.
-- The safety layer detects only the expressions it lists. Emergency number 999 was checked against public sources and may be unavailable in conflict-affected areas.
-- There is no user study; the system was tested manually through Telegram.
+- The system classifies four emotions only; mixed emotions and intensity are not represented.
+- The training data contain Modern Standard Arabic and explicit emotion statements. Sudanese dialect, implicit emotion, and negation are handled partly by hand-written rules; negation handling has not been fully verified end to end.
+- The curated verses were selected by the project team and have not been reviewed by a religious scholar.
+- The safety layer only detects expressions covered by its rules. Its fixed emergency number may not be available in all locations or circumstances.
+- There has been no user study; the system was tested manually through Telegram.
 
 ## Data and licences
 
-- **Arabic EmpatheticDialogues** (Naous et al., 2021), translated from EmpatheticDialogues (Rashkin et al., 2019). The paper states no data licence.
-- **ELQV** (Almarzoqi and Alsuhaibani, 2025), `github.com/Arwaalmrzoqi/ELQV`. The paper states no data licence.
-- The rights to these datasets belong to their authors. Check the original repositories before reusing the data.
-- The code in this repository is released under the MIT licence (see `LICENSE`).
+- **Arabic EmpatheticDialogues** (Naous et al., 2021), translated from EmpatheticDialogues (Rashkin et al., 2019). The cited paper does not state a data licence.
+- **ELQV** (Almarzoqi and Alsuhaibani, 2025), available from `https://github.com/Arwaalmrzoqi/ELQV`. The cited paper does not state a data licence.
+- Dataset rights remain with their respective authors. Check the original sources and licence terms before reuse or redistribution. The MIT licence in this repository applies to project code, not automatically to third-party datasets.
 
 ## Citation
 
-If you use this work, please cite it using `CITATION.cff` (GitHub shows a "Cite this repository" button), and cite the datasets above.
+If you use this work, please cite it using [`CITATION.cff`](CITATION.cff), and cite the source datasets separately. The citation metadata should be updated with the final author names and correct repository URL before the project is archived.
 
 ## Team
 
-**Eithar Ibrahim, Hajer Mohammed, Doaa Ahmed**| BSC in CS & IT | 2026 | Supervisor: Dr. Omayma Hussien.
+**Eithar Ibrahim, Hajer Mohammed, Doaa Ahmed** – BSc in Computer Science and Information Technology, 2026. Supervisor: Dr. Omayma Hussien.
