@@ -82,4 +82,4 @@ If you use this work, please cite it using `CITATION.cff` (GitHub shows a "Cite 
 
 ## Team
 
-**[ADD: names of the team members]** – Supervisor: Dr. Omayma Hussien.
+**Eithar Ibrahim - Hajer Mohammed - Doaa Ahmed** – Supervisor: Dr. Omayma Hussien.
