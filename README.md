@@ -1,2 +1,3 @@
-# الرفيق العربي الإسلامي الذكي للدعم العاطفي
-نظام محادثة يعتمد على الذكاء الاصطناعي لاكتشاف الحالات العاطفية وتقديم دعم روحي مخصّص.
+# Smart Arabic Islamic Emotional Companion
+
+An AI-powered conversational system that detects emotional states and provides personalized spiritual support.
