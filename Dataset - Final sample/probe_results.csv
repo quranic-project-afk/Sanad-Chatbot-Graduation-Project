@@ -1,0 +1,38 @@
+﻿text,label,tag,bert,conf,lr,ok_bert,ok_lr
+أنا خايف من بكرة,fear,explicit,fear,1.0,fear,True,True
+قلبي بيدق بسرعة وكل ما أفكر في الموضوع بتوتر,fear,implicit,fear,1.0,joy,True,False
+ما قادر أنوم من القلق,fear,explicit,fear,1.0,fear,True,True
+خايفة على ولدي,fear,explicit,fear,1.0,fear,True,True
+الحمل الجاي دا مرعبني,fear,explicit,fear,1.0,joy,True,False
+أحس إنو في حاجة وحشة حا تحصل,fear,implicit,sadness,1.0,fear,False,True
+بتخوف من نتيجة التحاليل,fear,explicit,fear,1.0,fear,True,True
+نجحت الحمد لله,joy,explicit,joy,0.99,fear,True,False
+فرحان شديد اليوم,joy,explicit,joy,1.0,fear,True,False
+ربنا أكرمني بوظيفة أخيراً,joy,implicit,joy,1.0,joy,True,True
+الليلة أحلى يوم في حياتي,joy,implicit,joy,1.0,joy,True,True
+مبسوطة لأنو جاني ولد,joy,explicit,joy,1.0,joy,True,True
+أخيراً اتحققت الأمنية البتمناها,joy,implicit,joy,1.0,joy,True,True
+أنا حزينة جداً,sadness,explicit,sadness,1.0,sadness,True,True
+مات أبوي الله يرحمه,sadness,implicit,sadness,1.0,sadness,True,True
+قلبي مكسور,sadness,implicit,sadness,1.0,joy,True,False
+أحس إني براي ومافي زول بسأل عني,sadness,implicit,sadness,0.93,sadness,True,True
+والله الخبر ده كسر خاطري,sadness,implicit,sadness,0.99,fear,True,False
+بكيت الليلة كلها,sadness,implicit,sadness,0.99,fear,True,False
+زوجي أذاني وأنا غضبانة,anger,explicit,anger,1.0,fear,True,False
+غضبان من أخوي,anger,explicit,anger,1.0,fear,True,False
+الزول ده رفع ضغطي,anger,implicit,anger,0.97,fear,True,False
+تعبت من الناس البتخذلني كل مرة,anger,implicit,anger,0.99,anger,True,True
+اتضايقت من كلامو,anger,explicit,anger,1.0,fear,True,False
+كل مرة بكذب علي وبعدين بتنكر,anger,implicit,anger,0.92,fear,True,False
+ما فرحانة بالموضوع زي ما الناس فاكرة,sadness,negation,joy,1.0,anger,False,False
+ما غضبانة، بس تصرفه وجعني شديد,sadness,negation,anger,0.98,fear,False,False
+ما خايف، بس مرتبك شوية,fear,negation,fear,1.0,fear,True,True
+ما حزين، بس تعبان,sadness,negation,sadness,1.0,sadness,True,True
+ما زعلان منك، أنا زعلان على نفسي,sadness,negation,anger,1.0,fear,False,False
+مبسوطة ليها لكن زعلانة على نفسي,sadness,mixed,joy,0.76,fear,False,False
+فرحان بالنجاح بس خايف من المسؤولية,joy,mixed,fear,1.0,fear,False,False
+زعلان منو بس بحبو,sadness,mixed,anger,0.99,fear,False,False
+الحمد لله على كل حال لكن قلبي تعبان,sadness,mixed,sadness,0.95,joy,True,False
+ما عارف أعمل شنو,fear,implicit,fear,0.87,fear,True,True
+ما قادرة أصدق الحصل,fear,implicit,sadness,0.5,fear,False,True
+محتاج رزق,sadness,implicit,sadness,0.57,fear,True,False

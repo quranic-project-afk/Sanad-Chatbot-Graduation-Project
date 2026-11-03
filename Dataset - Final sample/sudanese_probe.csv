@@ -1,0 +1,38 @@
+﻿text,label,tag
+أنا خايف من بكرة,fear,explicit
+قلبي بيدق بسرعة وكل ما أفكر في الموضوع بتوتر,fear,implicit
+ما قادر أنوم من القلق,fear,explicit
+خايفة على ولدي,fear,explicit
+الحمل الجاي دا مرعبني,fear,explicit
+أحس إنو في حاجة وحشة حا تحصل,fear,implicit
+بتخوف من نتيجة التحاليل,fear,explicit
+نجحت الحمد لله,joy,explicit
+فرحان شديد اليوم,joy,explicit
+ربنا أكرمني بوظيفة أخيراً,joy,implicit
+الليلة أحلى يوم في حياتي,joy,implicit
+مبسوطة لأنو جاني ولد,joy,explicit
+أخيراً اتحققت الأمنية البتمناها,joy,implicit
+أنا حزينة جداً,sadness,explicit
+مات أبوي الله يرحمه,sadness,implicit
+قلبي مكسور,sadness,implicit
+أحس إني براي ومافي زول بسأل عني,sadness,implicit
+والله الخبر ده كسر خاطري,sadness,implicit
+بكيت الليلة كلها,sadness,implicit
+زوجي أذاني وأنا غضبانة,anger,explicit
+غضبان من أخوي,anger,explicit
+الزول ده رفع ضغطي,anger,implicit
+تعبت من الناس البتخذلني كل مرة,anger,implicit
+اتضايقت من كلامو,anger,explicit
+كل مرة بكذب علي وبعدين بتنكر,anger,implicit
+ما فرحانة بالموضوع زي ما الناس فاكرة,sadness,negation
+ما غضبانة، بس تصرفه وجعني شديد,sadness,negation
+ما خايف، بس مرتبك شوية,fear,negation
+ما حزين، بس تعبان,sadness,negation
+ما زعلان منك، أنا زعلان على نفسي,sadness,negation
+مبسوطة ليها لكن زعلانة على نفسي,sadness,mixed
+فرحان بالنجاح بس خايف من المسؤولية,joy,mixed
+زعلان منو بس بحبو,sadness,mixed
+الحمد لله على كل حال لكن قلبي تعبان,sadness,mixed
+ما عارف أعمل شنو,fear,implicit
+ما قادرة أصدق الحصل,fear,implicit
+محتاج رزق,sadness,implicit
